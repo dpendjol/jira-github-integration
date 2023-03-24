@@ -16,16 +16,26 @@ jobs:
         JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
         
-    - name: Jira TODO
-      uses: atlassian/gajira-todo@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Get commit messages
+      run: |
+          COMMIT_MESSAGES=$(git log --pretty=format:%s ${{ github.event.before }}..${{ github.event.after }})
+          echo "::set-output name=messages::${COMMIT_MESSAGES}"
+      id: get_messages
+    - name: Find Jira issues
+      run: |
+          JIRA_ISSUES=$(echo ${{ steps.get_messages.outputs.messages }} | grep -oP 'FEAT-\d+')
+          echo "::set-output name=issues::${JIRA_ISSUES}"
+      id: get_issues
+    - name: Update Jira issues
+      uses: atlassian/gajira-action@v1.0.1
       with:
-        project: GA
-        issuetype: Task
-        description: Created automatically via GitHub Actions
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        server: ${{ secrets.JIRA_SERVER_URL }}
+        email: ${{ secrets.JIRA_USERNAME }}
+        api_token: ${{ secrets.JIRA_API_TOKEN }}
+        action: label
+        jql: 'key in (${JIRA_ISSUES})'
+        label: 'merged_to_master'
         
-        name: Find in commit messages
-        uses: atlassian/gajira-find-issue-key@v3
-        with: ${{ github.event.ref }}
-        from: commits
+
