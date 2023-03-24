@@ -10,7 +10,7 @@ branch_name = payload["ref"]
 issue_key = re.search(r"FEAT-\d+", branch_name).group()
 
 # Update the JIRA ticket with the label "merged_to_master"
-jira_url = "https://example.atlassian.net/rest/api/2/issue/" + issue_key
+jira_url = "https://plauti-test.atlassian.net/rest/api/2/issue/" + issue_key
 jira_headers = {
     "Content-Type": "application/json",
     "Authorization": "Bearer ATATT3xFfGF0j_3evjSbUrYSVqnkl-ON9F-9Pp6ZxPA-VRkw6tA5Tu_N-xRaH76uWhq6fHa7z_sDFdmSsiMWYXDY3FCPRKvdeFxPaCzDnF9nFHmFVf2W5yUikdTRTG4hYwDbs-Aikql6oIFEh9tdWaxY_rBOogUG4RUu4MEPtBiF6q_SAsxf2nw=CD53472B",
