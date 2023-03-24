@@ -12,9 +12,9 @@ jobs:
     - name: Login
       uses: atlassian/gajira-login@v3
       env:
-        JIRA_BASE_URL: ${{ https://plauti-test.atlassian.net/ }}
-        JIRA_USER_EMAIL: ${{ gijs.hovens@plauti.com }}
-        JIRA_API_TOKEN: ${{ ATATT3xFfGF0j_3evjSbUrYSVqnkl-ON9F-9Pp6ZxPA-VRkw6tA5Tu_N-xRaH76uWhq6fHa7z_sDFdmSsiMWYXDY3FCPRKvdeFxPaCzDnF9nFHmFVf2W5yUikdTRTG4hYwDbs-Aikql6oIFEh9tdWaxY_rBOogUG4RUu4MEPtBiF6q_SAsxf2nw=CD53472B }}
+        JIRA_BASE_URL: ${{ "https://plauti-test.atlassian.net/" }}
+        JIRA_USER_EMAIL: ${{ "gijs.hovens@plauti.com" }}
+        JIRA_API_TOKEN: ${{ "ATATT3xFfGF0j_3evjSbUrYSVqnkl-ON9F-9Pp6ZxPA-VRkw6tA5Tu_N-xRaH76uWhq6fHa7z_sDFdmSsiMWYXDY3FCPRKvdeFxPaCzDnF9nFHmFVf2W5yUikdTRTG4hYwDbs-Aikql6oIFEh9tdWaxY_rBOogUG4RUu4MEPtBiF6q_SAsxf2nw=CD53472B" }}
 
     - name: Jira TODO
       uses: atlassian/gajira-todo@v3
