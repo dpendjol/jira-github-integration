@@ -1,4 +1,4 @@
-name: Run Jira Create Task
+name: Add label in merge
 on:
   push:
     branches:
