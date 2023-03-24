@@ -1,6 +1,8 @@
-on: push
-
-name: Jira Example
+name: Run Jira Create Task
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
