@@ -24,18 +24,16 @@ jobs:
           echo "::set-output name=messages::${COMMIT_MESSAGES}"
       id: get_messages
     - name: Find Jira issues
-      run: |
+        run: |
           JIRA_ISSUES=$(echo ${{ steps.get_messages.outputs.messages }} | grep -oP 'FEAT-\d+')
           echo "::set-output name=issues::${JIRA_ISSUES}"
-      id: get_issues
-    - name: Update Jira issues
-      uses: atlassian/gajira@v1.0.1
-      with:
-          server: ${{ secrets.JIRA_SERVER_URL }}
-          email: ${{ secrets.JIRA_USERNAME }}
-          api_token: ${{ secrets.JIRA_API_TOKEN }}
-          action: label
-          jql: 'key in (${JIRA_ISSUES})'
-          label: 'merged_to_master'
+        id: get_issues
+      - name: Update Jira issues
+        run: |
+          for issue in $(echo "${{ steps.get_issues.outputs.issues }}"); do
+            curl -u ${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }} -X PUT -H "Content-Type: application/json" \
+            https://${{ secrets.JIRA_SERVER_URL }}/rest/api/3/issue/${issue} \
+            -d '{"update": {"labels": [{"add": "merged_to_master"}]}}'
+          done
         
 
