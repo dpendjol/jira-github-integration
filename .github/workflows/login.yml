@@ -18,20 +18,22 @@ jobs:
         
     - name: Checkout code
       uses: actions/checkout@v3
+      
     - name: Get commit messages
       run: |
           COMMIT_MESSAGES=$(git log --pretty=format:%s ${{ github.event.before }}..${{ github.event.after }})
           echo "::set-output name=messages::${COMMIT_MESSAGES}"
       id: get_messages
+      
     - name: Find Jira issues
       run: |
           JIRA_ISSUES=$(echo ${{ steps.get_messages.outputs.messages }} | grep -oP 'FEAT-\d+')
           echo "::set-output name=issues::${JIRA_ISSUES}"
           id: get_issues
+          
     - name: Update Jira issues
       run: |
-    for issue in $(echo "${{ steps.get_issues.outputs.issues }}"); do
-      curl -u ${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }} -X PUT -H "Content-Type: application/json" \
+for issue in $(echo "${{ steps.get_issues.outputs.issues }}" | tr " " "\n"); do curl -u ${{ secrets.JIRA_USERNAME }}:${{ secrets.JIRA_API_TOKEN }} -X PUT -H "Content-Type: application/json" \
       https://${{ secrets.JIRA_SERVER_URL }}/rest/api/3/issue/${issue} \
       -d '{"update": {"labels": [{"add": "merged_to_master"}]}}'
     done
