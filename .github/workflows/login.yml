@@ -29,13 +29,13 @@ jobs:
           echo "::set-output name=issues::${JIRA_ISSUES}"
       id: get_issues
     - name: Update Jira issues
-      uses: atlassian/gajira-action@v1.0.1
+      uses: atlassian/gajira@v1.1.0
       with:
-        server: ${{ secrets.JIRA_SERVER_URL }}
-        email: ${{ secrets.JIRA_USERNAME }}
-        api_token: ${{ secrets.JIRA_API_TOKEN }}
-        action: label
-        jql: 'key in (${JIRA_ISSUES})'
-        label: 'merged_to_master'
+          server: ${{ secrets.JIRA_SERVER_URL }}
+          email: ${{ secrets.JIRA_USERNAME }}
+          api_token: ${{ secrets.JIRA_API_TOKEN }}
+          action: label
+          jql: 'key in (${JIRA_ISSUES})'
+          label: 'merged_to_master'
         
 
