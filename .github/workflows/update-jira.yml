@@ -1,4 +1,4 @@
-name: Update Jira
+name: Run Webhook Handler on push to Master
 on:
   push:
     branches:
