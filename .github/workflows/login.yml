@@ -16,6 +16,11 @@ jobs:
         JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
         
+name: Find in commit messages
+  uses: atlassian/gajira-find-issue-key@v3
+  with:
+    from: commits
+        
     - name: Jira TODO
       uses: atlassian/gajira-todo@v3
       with:
