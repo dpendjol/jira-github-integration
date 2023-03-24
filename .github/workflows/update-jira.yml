@@ -1,0 +1,25 @@
+name: Update Jira
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-jira:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9.x' # replace with your desired Python version
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run script
+        run: python webhook_handler.py
+        env:
+          JIRA_USERNAME: ${{ secrets.JIRA_USERNAME }}
+          JIRA_API_KEY: ${{ secrets.JIRA_API_KEY }}
