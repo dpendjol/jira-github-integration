@@ -21,5 +21,5 @@ jobs:
       - name: Run script
         run: python webhook_handler.py
         env:
-          JIRA_USERNAME: ${{ secrets.Gijs Hovens }}
+          JIRA_USERNAME: ${{ secrets.GijsHovens }}
           JIRA_API_KEY: ${{ secrets.ATATT3xFfGF0j_3evjSbUrYSVqnkl-ON9F-9Pp6ZxPA-VRkw6tA5Tu_N-xRaH76uWhq6fHa7z_sDFdmSsiMWYXDY3FCPRKvdeFxPaCzDnF9nFHmFVf2W5yUikdTRTG4hYwDbs-Aikql6oIFEh9tdWaxY_rBOogUG4RUu4MEPtBiF6q_SAsxf2nw=CD53472B }}
